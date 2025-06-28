@@ -1,8 +1,8 @@
 answers_list = [[1, 2, 3, 4, 5], [1, 3, 2, 4, 2]]
 
 student1_pattern = [1, 2, 3, 4, 5]
-student2_pattern = [1, 3, 4, 5]
-student3_pattern = [3, 1, 2, 4, 5]
+student2_pattern = [2, 1, 2, 3, 2, 4, 2, 5]
+student3_pattern = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
 
 answers = answers_list[0]
 
@@ -17,12 +17,8 @@ for answers in answers_list:
 
     for i in range(problem_count):
         student1_answer_sheet[i] = student1_pattern[i % len(student1_pattern)]
-        if i % 2 == 0:
-            student2_answer_sheet[i] = 2
-            student3_answer_sheet[i] = student3_pattern[(i // 2) % len(student3_pattern)]
-        else:
-            student2_answer_sheet[i] = student2_pattern[(i // 2) % len(student2_pattern)]
-            student3_answer_sheet[i] = student3_answer_sheet[i - 1]
+        student2_answer_sheet[i] = student2_pattern[i % len(student2_pattern)]
+        student3_answer_sheet[i] = student3_pattern[i % len(student3_pattern)]
 
     for i in range(problem_count):
         ans = answers[i]
