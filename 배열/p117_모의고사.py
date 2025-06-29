@@ -1,4 +1,5 @@
 def solution(answers):
+    """ 시간복잡도: O(N) """
     # 각 학생의 찍기 패턴
     patterns = [
         [1, 2, 3, 4, 5],

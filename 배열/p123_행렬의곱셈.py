@@ -8,6 +8,7 @@ arr2 = [[3,3], [3,3]]
 # arr2 = [[1, 1], [1, 1]]
 
 def solution(arr1, arr2):
+    """ 시간복잡도: O(r1 * c1 * c2) = O(N^3) """
     r1, c1 = len(arr1), len(arr1[0])
     r2, c2 = len(arr2), len(arr2[0])
 
