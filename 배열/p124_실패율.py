@@ -1,32 +1,35 @@
 import unittest
 
-N = 5
-stages = [2, 1, 2, 6, 2, 4, 3, 3]
-result = [3, 4, 2, 1, 5]
-
 
 def solution(N, stages):
     """
-    TC: O(M log M + N log N)
-     - M: number of stages (length of stages)
-     - N: number of players (N is the maximum stage number)
+    TC: O(M + N log N)
+     - M: the number of players (length of stages)
+     - N: the number of stages
     SC: O(N)
-     - failure_rate: O(N)
+     - challenger list: O(N)
+     - fails dictionary: O(N)
     """
-    ans = []
-    failure_rate = []
-    stages.sort()
-    j = 0
-    last = 0
-    for i in range(1, N + 1):
-        while j < len(stages) and stages[j] == i:
-            j += 1
-        failure_rate.append((j - last) / (len(stages) - last))
-        last = j
+    challenger = [0] * (N + 2)  # N+1 is the last stage, N+2 is for out of bounds
+    # 스테이지별 도전자 수를 구함
+    for stage in stages:
+        challenger[stage] += 1
 
-    for i, rate in sorted(enumerate(failure_rate, start=1), key=lambda x: (-x[1], x[0])):
-        ans.append(i)
-    return ans
+    # 스테이지별 실패한 사용자 수 계산
+    fails = {}
+    total = len(stages)
+
+    # 각 스테이지를 순회하며 실패율 계산
+    for i in range(1, N + 1):
+        if challenger[i] == 0: # 도전자가 없는 경우, 실패율은 0
+            fails[i] = 0
+        else:
+            fails[i] = challenger[i] / total
+            total -= challenger[i]
+
+    # 실패율이 높은 스테이지부터 내림차순 정렬
+    result = sorted(fails, key=lambda x: fails[x], reverse=True)
+    return result
 
 
 class TestSolution(unittest.TestCase):
